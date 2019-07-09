@@ -41,7 +41,7 @@
 
     <insert id="insertSelective" parameterType="com.mmall.pojo.Cart">
         -- insert into users (id, name, funkyNumber, roundingMode) values (#{id}, #{name}, #{funkyNumber},
-        #{roundingMode})
+        -- #{roundingMode})
         insert into mmall_cart
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
