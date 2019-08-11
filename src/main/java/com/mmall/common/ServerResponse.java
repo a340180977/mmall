@@ -5,8 +5,10 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 //保证序列化json的时候,如果是null的对象,key也会消失
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+/*实现序列化接口是将对象的状态信息转换为可以存储或传输的形式的过程，比如java对象转换成二进制流。
+而@ResponseBody返回的jason格式是应用之间交互的数据格式*/
 public class ServerResponse<T> implements Serializable {
 
     private int status;

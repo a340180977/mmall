@@ -39,29 +39,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 4、配置Druid映射，使用Druid必须配置 -->
-    <filter>
-        <filter-name>druidWebStatFilter</filter-name>
-        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
-        <init-param>
-            <param-name>exclusions</param-name>
-            <param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value>
-        </init-param>
-        <init-param>
-            <param-name>principalSessionName</param-name>
-            <param-value>sessionInfo</param-value>
-        </init-param>
-        <init-param>
-            <param-name>profileEnable</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>druidWebStatFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <!-- 5、二期新增重置session时间的filter，可选配置-->
+    <!-- 4、二期新增重置session时间的filter，可选配置-->
     <filter>
         <filter-name>sessionExpireFilter</filter-name>
         <filter-class>com.mmall.controller.common.SessionExpireFilter</filter-class>
@@ -71,17 +49,7 @@
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
 
-    <!-- 6、配置Druid监听器，使用Druid必须配置 -->
-    <servlet>
-        <servlet-name>DruidStatView</servlet-name>
-        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DruidStatView</servlet-name>
-        <url-pattern>/druid/*</url-pattern>
-    </servlet-mapping>
-
-    <!-- 7、spring mvc的配置文件，必须配置-->
+    <!-- 5、spring mvc的配置文件，必须配置-->
     <servlet>
         <!-- servlet-name 可以随便取-->
         <servlet-name>springMVC</servlet-name>

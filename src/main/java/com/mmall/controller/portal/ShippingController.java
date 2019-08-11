@@ -1,12 +1,12 @@
 package com.mmall.controller.portal;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.Shipping;
 import com.mmall.pojo.User;
 import com.mmall.service.IShippingService;
 import com.mmall.util.CookieUtil;
-import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisPoolUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class ShippingController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         //user.getId()的作用是防止横向越权，即某个用户登陆后，只能添加自己的收货地址
         return iShippingService.add(user.getId(), shipping);
     }
@@ -46,7 +46,7 @@ public class ShippingController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         //user.getId()的作用是防止横向越权，即某个用户登陆后，只能删除自己的收货地址
         return iShippingService.del(user.getId(), shippingId);
     }
@@ -59,7 +59,7 @@ public class ShippingController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         //user.getId()的作用是防止横向越权，即某个用户登陆后，只能更新自己的收货地址
         return iShippingService.update(user.getId(), shipping);
     }
@@ -72,7 +72,7 @@ public class ShippingController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         //user.getId()的作用是防止横向越权，即某个用户登陆后，只能查看自己的收货地址
         return iShippingService.select(user.getId(), shippingId);
     }
@@ -87,7 +87,7 @@ public class ShippingController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         //user.getId()的作用是防止横向越权，即某个用户登陆后，只能查看自己的收货地址列表
         return iShippingService.list(user.getId(), pageNum, pageSize);
     }

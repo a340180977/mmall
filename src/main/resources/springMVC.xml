@@ -14,12 +14,16 @@
     <!-- 1、扫描Controller，将其生命周期纳入Spring管理 -->
     <!-- Spring给我们提供了<context:annotation-config/>的简化的配置方式，自动帮助你完成声明，并且还自动搜索@Component , @Controller , @Service , @Repository等标注的类。-->
     <context:annotation-config/>
+
     <context:component-scan base-package="com.mmall.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!--2、注解驱动，以使得访问路径与方法的匹配可以通过注解配置-->
     <mvc:annotation-driven>
+        <!--关于CharacterEncodingFilter，是对进来的request和出去的response做编码处理。
+        messageConverters是将进来的request处理为转换为开发者指定的对象，
+        再将返回的数据转换成指定的json或xml或其他指定的数据格式。-->
         <mvc:message-converters>
             <!--SpringMVC使用 @ResponseBody 注解，返加字符串不做任何处理时，有可能会出现乱码问题，
             解决乱码问题，需要改变 StringHttpMessageConverter中的默认字符集，本文中以UTF-8为例-->

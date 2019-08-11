@@ -1,11 +1,11 @@
 package com.mmall.controller.backend;
 
+import com.alibaba.fastjson.JSON;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.CookieUtil;
-import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisPoolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class UserManageController {
             User user = response.getData();
             if (user.getRole() == Const.Role.ROLE_ADMIN) {
                 CookieUtil.writeLoginToken(httpServletResponse, session.getId());
-                RedisPoolUtil.setEx(session.getId(), JsonUtil.obj2String(response.getData()), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
+                RedisPoolUtil.setEx(session.getId(), JSON.toJSONString(response.getData()), Const.RedisCacheExtime.REDIS_SESSION_EXTIME);
                 return response;
             } else {
                 return ServerResponse.createByErrorMessage("不是管理员,无法登录");

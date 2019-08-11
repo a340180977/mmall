@@ -1,11 +1,11 @@
 package com.mmall.controller.portal;
 
+import com.alibaba.fastjson.JSON;
 import com.mmall.common.Const;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.ICartService;
 import com.mmall.util.CookieUtil;
-import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisPoolUtil;
 import com.mmall.vo.CartVo;
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +31,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.list(user.getId());
     }
 
@@ -43,7 +43,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.add(user.getId(), productId, count);
     }
 
@@ -55,7 +55,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.update(user.getId(), productId, count);
     }
 
@@ -67,7 +67,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.deleteProduct(user.getId(), productIds);
     }
 
@@ -80,7 +80,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.selectOrUnSelect(user.getId(), null, Const.Cart.CHECKED);
     }
 
@@ -93,7 +93,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.selectOrUnSelect(user.getId(), null, Const.Cart.UN_CHECKED);
     }
 
@@ -106,7 +106,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.selectOrUnSelect(user.getId(), productId, Const.Cart.CHECKED);
     }
 
@@ -119,7 +119,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.selectOrUnSelect(user.getId(), productId, Const.Cart.UN_CHECKED);
     }
 
@@ -132,7 +132,7 @@ public class CartController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iCartService.getCartProductCount(user.getId());
     }
 }

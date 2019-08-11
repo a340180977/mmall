@@ -1,11 +1,11 @@
 package com.mmall.controller.portal;
 
+import com.alibaba.fastjson.JSON;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.service.IOrderService;
 import com.mmall.util.CookieUtil;
-import com.mmall.util.JsonUtil;
 import com.mmall.util.RedisPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +34,7 @@ public class OrderController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iOrderService.createOrder(user.getId(), shippingId);
     }
 
@@ -46,7 +46,7 @@ public class OrderController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iOrderService.cancel(user.getId(), orderNo);
     }
 
@@ -58,7 +58,7 @@ public class OrderController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iOrderService.getOrderCartProduct(user.getId());
     }
 
@@ -70,7 +70,7 @@ public class OrderController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iOrderService.getOrderDetail(user.getId(), orderNo);
     }
 
@@ -82,7 +82,7 @@ public class OrderController {
             return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
         }
         String userJsonStr = RedisPoolUtil.get(loginToken);
-        User user = JsonUtil.string2Obj(userJsonStr, User.class);
+        User user = JSON.parseObject(userJsonStr, User.class);
         return iOrderService.getOrderList(user.getId(), pageNum, pageSize);
     }
 }
